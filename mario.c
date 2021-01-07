@@ -5,21 +5,23 @@ int main(void)
 
 {
     int height;
-    int spaces; 
-    int hashes;
 
     do
     {
+        //user input for height 
         height = get_int("Height (Positive number between 1-8): \n");
     }
     while (height < 1 || height > 8);
 
-    //draw the half pyramid
-    for (spaces = 0; spaces < height; spaces++)
+    
+    for (int row = 0; row < height ; row++)
     {
-        for (hashes = 1; hashes < height; hashes++ )    
+        for (int column = 0; column < height ; column++ )    
         {
-            printf("#");
+            if (row + column >= height - 1) 
+                printf("#");
+            else 
+                printf(" ");
         }
         printf("\n");
     }
