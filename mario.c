@@ -3,13 +3,13 @@
 
 int main(void);
 {   
-    int height; 
+    int h; 
     do
     {
-        height = get_int("Positve Number for Height: \n");
+        h = get_int("Positve Number for Height: \n");
     }
-    while (height < 1 or height > 8);
-        height = int(input("Height: "))
+    while (h < 1 or h > 8);
+        h = int(input("Height: "))
     
     printf("%i\n", height);
 }
