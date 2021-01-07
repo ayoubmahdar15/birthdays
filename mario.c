@@ -7,9 +7,16 @@ int main(void);
     do
     {
         h = get_int("Positve Number for Height: \n");
-    }
-    while (h < 1 or h > 8);
-        h = int(input("Height: "))
+        printf("Height: %i\n", height);
+    } while (h < 1 || h > 8);
     
-    printf("%i\n", height);
+    for (int h = 1; i < 9; i++)
+    {
+        for (int w = 0; w < h; w++)
+        {
+            printf("#");
+        }
+        printf("\n")
+    } 
+        
 }
