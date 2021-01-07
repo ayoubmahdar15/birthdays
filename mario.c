@@ -1,22 +1,27 @@
 #include <cs50.h>
-#include <stdio.h> 
+#include <stdio.h>
 
-int main(void);
-{   
-    int h; 
+int main(void)
+
+{
+    int height;
+    int spaces; 
+    int hashes;
+
     do
     {
-        h = get_int("Positve Number for Height: \n");
-        printf("Height: %i\n", height);
-    } while (h < 1 || h > 8);
-    
-    for (int h = 1; i < 9; i++)
+        height = get_int("Height (Positive number between 1-8): \n");
+    }
+    while (height < 1 || height > 8);
+
+    //draw the half pyramid
+    for (spaces = 0; spaces < height; spaces++)
     {
-        for (int w = 0; w < h; w++)
+        for (hashes = 1; hashes < height; hashes++ )    
         {
             printf("#");
         }
-        printf("\n")
-    } 
-        
+        printf("\n");
+    }
+
 }
