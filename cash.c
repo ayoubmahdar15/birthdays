@@ -13,7 +13,7 @@ int main(void)
     {
         dollar_change = get_float("Enter the change amount: ");
     }
-    while (dollar_change < 0.00);
+    while (dollar_change <= 0.00);
 
     //Convert Dollar Change to Cent Change
     cent_change = round(dollar_change * 100);
@@ -23,21 +23,23 @@ int main(void)
         cent_change = cent_change - 25;
         coins++;
     }
-    while cent_change >= 10
+
+    while (cent_change >= 10)
     {
-        cent change = cent_change - 10;
-        coins++;
-    }
-    while cent_change >= 5
-    {
-        cent change = cent_change - 5;
-        coins++;
-    }
-    while (cent_change >= 1)
-    {
-        cent change = cent_change - 1;
+        cent_change = cent_change - 10;
         coins++;
     }
 
-    printf("You will recive %i\n coins," coins);
+    while (cent_change >= 5)
+    {
+        cent_change = cent_change - 5;
+        coins++;
+    }
+
+    while (cent_change >= 1)
+    {
+        cent_change = cent_change - 1;
+        coins++;
+    }
+    printf("You will recieve a total of: %i coins \n", coins);
 }
