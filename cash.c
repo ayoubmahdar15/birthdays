@@ -19,6 +19,7 @@ int coins = 0;
     //Convert Dollars to Cent Change
     coin_change = round(dollars * 100);
 
+    //Change Calculations
     while (coin_change > 0)
     {
         //Quarters
@@ -46,6 +47,6 @@ int coins = 0;
             coins++;
         }
     }
+    //Final Change Result 
     printf("You will recive a total of: %i coins \n", coins);
-
 }
