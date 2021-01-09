@@ -4,42 +4,48 @@
 
 int main(void)
 
-{  
-    float dollar_change;
-    int cent_change;
-    int coins = 0;
+{
+float dollars;
+int coin_change;
+int coins = 0;
 
+    //Get Input from User
     do
     {
-        dollar_change = get_float("Enter the change amount: ");
+     dollars = get_float("What is the total change?: \n");
     }
-    while (dollar_change <= 0.00);
+    while (dollars <= 0.00);
 
-    //Convert Dollar Change to Cent Change
-    cent_change = round(dollar_change * 100);
+    //Convert Dollars to Cent Change
+    coin_change = round(dollars * 100);
 
-    while (cent_change >= 25)
+    while (coin_change > 0)
     {
-        cent_change = cent_change - 25;
-        coins++;
+        //Quarters
+        if (coin_change >= 25)
+        {
+            coin_change = (coin_change - 25);
+            coins++;
+        }
+        //Dimes
+        else if (coin_change >= 10)
+        {
+           coin_change = (coin_change - 10);
+           coins++;
+        }
+        //Nickles
+        else if (coin_change >= 5)
+        {
+            coin_change = (coin_change - 5);
+            coins++;
+        }
+        //Pennies
+        else
+        {
+            coin_change = (coin_change - 1);
+            coins++;
+        }
     }
+    printf("You will recive a total of: %i coins \n", coins);
 
-    while (cent_change >= 10)
-    {
-        cent_change = cent_change - 10;
-        coins++;
-    }
-
-    while (cent_change >= 5)
-    {
-        cent_change = cent_change - 5;
-        coins++;
-    }
-
-    while (cent_change >= 1)
-    {
-        cent_change = cent_change - 1;
-        coins++;
-    }
-    printf("You will recieve a total of: %i coins \n", coins);
 }
