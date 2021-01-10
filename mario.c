@@ -1,29 +1,32 @@
-#include <cs50.h>
 #include <stdio.h>
+#include <cs50.h>
 
 int main(void)
 
 {
+    //Prompt for Input
     int height;
-
-    do
-    {
-        //user input for height 
-        height = get_int("Height (Positive number between 1-8): \n");
-    }
-    while (height < 1 || height > 8);
-
-    
-    for (int row = 0; row < height ; row++)
-    {
-        for (int column = 0; column < height ; column++ )    
+        do
         {
-            if (row + column >= height - 1) 
-                printf("#");
-            else 
-                printf(" ");
+             height = get_int("Enter height: ");
         }
-        printf("\n");
-    }
+       while (height < 1 || height > 8);
 
+    printf("Height: %i\n", height);
+
+    // Rows 
+    for (int i = 0; i < height ; i++)   
+    {
+            // Columns producing "# or  "
+           for (int m = 0; m < (8 - (i + 1)); m++)
+                printf(" ");
+           
+           for (int c = 0; c < i + 1; c++)
+                printf("#");
+       
+       printf("\n");
+    }
+   
 }
+
+
