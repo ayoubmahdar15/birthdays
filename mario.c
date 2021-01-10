@@ -12,7 +12,7 @@ int main(void)
         }
        while (height < 1 || height > 8);
 
-    printf("Height: %i\n", height);
+    printf("%i\n", height);
 
     // Rows 
     for (int i = 0; i < height ; i++)   
