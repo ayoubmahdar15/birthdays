@@ -4,15 +4,14 @@
 int main(void)
 
 {
-    //Prompt for Input
+    //Prompt for Input From User
     int height;
+    
         do
         {
              height = get_int("Enter height: ");
         }
        while (height < 1 || height > 8);
-
-    printf("%i\n", height);
 
     // Rows 
     for (int i = 0; i < height ; i++)   
