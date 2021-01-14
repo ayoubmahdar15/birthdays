@@ -30,8 +30,8 @@ int count_sentences = 0;
         }
     }
 
-    float L = (count_letters / count_words) * 100;
-    float S = (count_sentences / count_words) * 100;
+    float L = (count_letters / (float) count_words) * 100;
+    float S = (count_sentences / (float) count_words) * 100;
     float index = ((0.0588 * L) - (0.296 * S) - 15.8);
     int estimated_grade = round(index);
 
