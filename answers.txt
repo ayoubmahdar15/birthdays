@@ -1,0 +1,27 @@
+sort1 uses: Bubble Sort 
+How do you know?: Bubble sort performs better than selection sort when numbers are already sorted. 
+This idea was supported by the run times obtained. 
+
+sort2 uses: Merge Sort 
+How do you know?: In both reversed10000 and random 50000, sort 2 yielded the fastest sort times. 
+As we know merge sort is known to be quite efficient in sorting at the cost of the user writing more lines of code and using more arrays. 
+
+sort3 uses: Selection Sort 
+How do you know?: Bubble sort is faster than selection sort when the list is already sorted. 
+
+
+
+
+
+Calculations/Work Below: 
+
+sort 1 reversed10000 = .404s real .180s user 
+sort 2 reversed10000 = .060s real .000s user 
+sort 3 reversed10000 = .166s real .098s user 
+
+sort 1 random50000 = 13.04s real 6.288s user 
+sort 2 random50000 = 2.177s real 0.038s user 
+sort 3 random50000 = 6.363s real 2.400s user 
+
+try out sorted because bubble short has faster omega rate. 
+bubble sort performs better when numbers are already sorted. 
