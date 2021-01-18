@@ -70,7 +70,7 @@ bool vote(string name)
     // Comparing Two Strings to Add up Votes 
     for (int i = 0; i < candidate_count; i++)
     {
-        if (strcmp(name, candidates[i].name) == 0)
+        if (strcmp(candidates[i].name, name) == 0)
         {
             candidates[i].votes++;
             return true;
@@ -95,7 +95,7 @@ void print_winner(void)
     // Print Winner 
     for (int i = 0; i < candidate_count; i++)
     {
-        if (candidates[i].votes == max_votes)
+        if (max_votes == candidates[i].votes)
         {
             string winner = candidates[i].name;
             printf("Winner: %s\n", winner);
