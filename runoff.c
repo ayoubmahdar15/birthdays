@@ -145,15 +145,13 @@ void tabulate(void)
 {
     for (int i = 0; i < voter_count; i++) // I is vote number
     {
-        for (int j = 0; j < candidate_count; j++) // J is rank number
+        int j = 0;
+        while (candidates[i][j].eliminated == true)
         {
-            if (candidates[i].eliminated == false)
-            {
-                // If not eliminated, add vote rank to candidate.
-                candidates[preferences[i][j]].votes++;
-                break;
-            }
+            j++;
         }
+    // If not eliminated, add vote rank to candidate.
+        candidates[preferences[i][j]].votes++;
     }
     return;
 }
@@ -184,31 +182,19 @@ int find_min(void)
             // If still in running and has less than prior candidate min value
             if (candidates[i].votes < lowest_vote)
             {
-                candidates[i].votes = lowest_vote;
-                return lowest_vote;
+                lowest_vote = candidates[i].votes;
             }
         }
     }
-    return 0;
+    return lowest_vote; 
 }
 
 // Return true if the election is tied between all candidates, false otherwise
 bool is_tie(int min)
 {
-    int not_eliminated_counters = 0; // How many candidates still left
-    int candidates_tied = 0; // How many candidates have same minimum vote value
-
     for (int i = 0; i < candidate_count; i++)
     {
-        if (candidates[i].eliminated == false)
-        {
-            not_eliminated_counters++;
-            if (candidates[i].votes == min)
-            {
-                candidates_tied++;
-            }
-        }
-        if (not_eliminated_counters == candidates_tied) // Suggests a tie exists
+        if (candidates[i].eliminated == true && candidates[i].votes == min)
         {
             return true;
         }
