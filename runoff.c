@@ -145,15 +145,20 @@ void tabulate(void)
 {
     for (int i = 0; i < voter_count; i++) // I is vote number
     {
-        int j = 0;
-        while (candidates[i][j].eliminated == true)
+        for (int j = 0; j < candidate_count; j++)
         {
-            j++;
+            if (candidates[preferences[i][j]].eliminated == false)
+            {
+                candidates[preferences[i][j]].votes++;
+                break;
+            }
         }
-    // If not eliminated, add vote rank to candidate.
-        candidates[preferences[i][j]].votes++;
     }
     return;
+    
+    
+    
+    
 }
 
 // Print the winner of the election, if there is one
