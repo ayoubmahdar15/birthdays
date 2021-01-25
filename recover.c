@@ -9,18 +9,19 @@ int main(int argc, char *argv[])
         printf("Incorrect usage\n");
         return 1; 
     }
-    
+    // open memory card
     FILE *memory_card = fopen(argv[1], "r"); 
     if (memory_card == NULL)
     {
+        // Memory card cannot be read
         printf("Cannot be opened for reading\n");
         return 1; 
     }
     
-    unsigned char buffer [512];
-    int image_count = 0; 
+    unsigned char buffer [512]; // Buffer for Array 
     FILE *output_images = NULL; 
     char filename [8];
+    int image_count = 0; // Counting # of Images Recovered
     
     while (fread(&buffer, 512, 1, memory_card))
     {
