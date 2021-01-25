@@ -187,7 +187,7 @@ int find_min(void)
             }
         }
     }
-    return lowest_vote; 
+    return lowest_vote;
 }
 
 // Return true if the election is tied between all candidates, false otherwise
