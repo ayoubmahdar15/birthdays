@@ -12,19 +12,19 @@ int i;
 int count_letters = 0;
 int count_words = 1;
 int count_sentences = 0;
-    
+
     for (i=0; i < strlen(text); i++)
     {
         char c = text[i];
-        if (isalpha (c))
+        if (isalpha (c)) // Alphabetical letter 
         {
             count_letters++;
         }
-        if (isspace (c))
+        if (isspace (c)) // Space suggests word (+1 for first word)
         {
             count_words++;
         }
-        if (c == '.' || c == '!' || c == '?')
+        if (c == '.' || c == '!' || c == '?') //punctuation marks end of sentence
         {
             count_sentences++;
         }
@@ -32,7 +32,7 @@ int count_sentences = 0;
 
     float L = (count_letters / (float) count_words) * 100;
     float S = (count_sentences / (float) count_words) * 100;
-    float index = ((0.0588 * L) - (0.296 * S) - 15.8);
+    float index = ((0.0588 * L) - (0.296 * S) - 15.8); // Formula 
     int estimated_grade = round(index);
 
     if (estimated_grade >= 1 && estimated_grade < 16)
@@ -43,7 +43,7 @@ int count_sentences = 0;
     {
         printf("Grade 16+\n");
     }
-    else 
+    else
     {
         printf("Before Grade 1\n");
     }
