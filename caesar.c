@@ -11,9 +11,9 @@ int main(int argc, string argv[])
     if (argc == 2)
     {
         int key = atoi(argv[1]);
-        string plain_statement = get_string("Plaintext: \n");
+        string plain_statement = get_string("plaintext: \n");
         
-        printf("Ciphertext: \n");
+        printf("ciphertext: \n");
         for (int i = 0, n = strlen(plain_statement); i < n; i++)
             {
                 char c = plain_statement[i];
@@ -21,11 +21,11 @@ int main(int argc, string argv[])
                 {
                     if (isupper(c)) 
                     {
-                        printf("%c", (c - 'A' + key) % 26 + 'A');
+                        printf("%c", ((c - 'A' + key) % 26) + 'A');
                     }
                     else (islower(c)); 
                     {
-                        printf("%c", (c - 'a' + key) % 26 + 'a');
+                        printf("%c", ((c - 'a' + key) % 26) + 'a');
                     } //Shift character by key
                 }
                 else
