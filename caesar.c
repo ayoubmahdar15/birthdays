@@ -12,9 +12,8 @@ int main(int argc, string argv[])
     {
         int key = atoi(argv[1]);
         string plain_statement = get_string("Enter: ");
-        int i;
 
-        for (i = 0, n = strlen(plain_statement); i < n; i++)
+        for (int i = 0, n = strlen(plain_statement); i < n; i++)
             {
                 char c = plain_statement[i];
                 if (isalpha(c)) 
@@ -52,9 +51,6 @@ int main(int argc, string argv[])
         // None alpha characters should not be affected.
 
     // End of program, exit by returning zero from main.
-
-
-
 }
 
 
