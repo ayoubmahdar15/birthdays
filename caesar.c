@@ -11,9 +11,9 @@ int main(int argc, string argv[])
     if (argc == 2)
     {
         int key = atoi(argv[1]);
-        string plain_statement = get_string("plaintext: \n");
+        string plain_statement = get_string("plaintext: ");
         
-        printf("ciphertext: \n");
+        printf("ciphertext: ");
         for (int i = 0, n = strlen(plain_statement); i < n; i++)
             {
                 char c = plain_statement[i];
