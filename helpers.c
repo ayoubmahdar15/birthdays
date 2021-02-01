@@ -8,13 +8,8 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++) // Loop for Rows
         {
-            // Exact values for each color
-            int red = image[i][j].rgbtRed;
-            int blue = image[i][j].rgbtBlue;
-            int green = image[i][j].rgbtGreen;
-
             // Average Values to Produce Grayscale Effect
-            int grayscale_average = (red + blue + green) / 3.0;
+            float grayscale_average = (image[i][j].rgbtRed + image[i][j].rgbtBlue + image[i][j].rgbtGreen) / 3.0;
 
             // Set values of each color to average
             image[i][j].rgbtRed = image[i][j].rgbtBlue = image[i][j].rgbtGreen = round(grayscale_average);
@@ -77,13 +72,11 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 {
     for (int i = 0; i < height; i++) // Loop for Columns
     {
-        for (int j = 0; j < (width/2); j++) // Loop for Rows (Swap Up Until Half of Width)
+        for (int j = 0; j < (width / 2); j++) // Loop for Rows (Swap Up Until Half of Width)
         {
             RGBTRIPLE temp = image[i][j]; // Store it in tmp.
-            image[i][j] = image[i][width - (j + 1)]; // Flip values
-            image[i][width - (1 + j)] = temp;
-
-            break;
+            image[i][j] = image[i][width - 1 - j]; // Flip values
+            image[i][width - 1 - j] = temp;
         }
     }
     return;
