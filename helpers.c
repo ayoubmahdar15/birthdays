@@ -14,7 +14,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
             int green = image[i][j].rgbtGreen;
 
             // Average Values to Produce Grayscale Effect
-            int grayscale_average = round((red + blue + green) / (float)3.0);
+            float grayscale_average = round((red + blue + green) / 3.0);
 
             // Set values of each color to average
             grayscale_average = image[i][j].rgbtGreen = image[i][j].rgbtBlue = image[i][j].rgbtRed;
@@ -47,7 +47,7 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
                 sepiaRed = image[i][j].rgbtRed;
             }
 
-            int sepiaBlue = round((.349 * red) + (.686 * green) + (.168 * blue));
+            int sepiaBlue = round((.272 * red) + (.534 * green) + (.131 * blue));
 
             if (sepiaBlue > 255)
             {
@@ -58,7 +58,7 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
                 sepiaBlue = image[i][j].rgbtBlue;
             }
 
-            int sepiaGreen = round((.272 * red) + (.534 * green) + (.131 * blue));
+            int sepiaGreen = round((.349 * red) + (.686 * green) + (.168 * blue));
 
             if (sepiaGreen > 255)
             {
@@ -82,8 +82,8 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
         for (int j = 0; j < width / 2; j++) // Loop for Rows (Swap Up Until Half of Width)
         {
             RGBTRIPLE temp = image[i][j]; // Store it in tmp.
-            image[i][j] = image[i][width - (1 + j)]; // Flip values
-            image[i][width - (1 + j)] = temp;
+            image[i][j] = image[i][width - (1 - j)]; // Flip values
+            image[i][width - (1 - j)] = temp;
 
             break;
         }
