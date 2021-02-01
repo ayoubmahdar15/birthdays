@@ -4,9 +4,9 @@
 // Convert image to grayscale
 void grayscale(int height, int width, RGBTRIPLE image[height][width])
 {
-    for (int i = 0; i < width; i++) // Loop for Columns
+    for (int i = 0; i < height; i++) // Loop for Columns
     {
-        for (int j = 0; j < height; j++) // Loop for Rows
+        for (int j = 0; j < width; j++) // Loop for Rows
         {
             // Exact values for each color
             int red = image[i][j].rgbtRed;
@@ -14,63 +14,61 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
             int green = image[i][j].rgbtGreen;
 
             // Average Values to Produce Grayscale Effect
-            float grayscale_average = round((red + blue + green) / 3.0);
+            int grayscale_average = round(((float)red + (float)blue + (float)green) / 3.0);
 
             // Set values of each color to average
-            grayscale_average = red = blue = green;
+            grayscale_average = image[i][j].rgbtRed = image[i][j].rgbtBlue = image[i][j].rgbtGreen;
         }
     }
-    return;
 }
 
 // Convert image to sepia
 void sepia(int height, int width, RGBTRIPLE image[height][width])
 {
-    for (int i = 0; i < width; i++) // Loop for Columns
+    for (int i = 0; i < height; i++) // Loop for Columns
     {
-        for (int j = 0; j < height; j++) // Loop for Rows
+        for (int j = 0; j < width; j++) // Loop for Rows
         {
             // Exact values for each color
+            int green = image[i][j].rgbtGreen;
             int red = image[i][j].rgbtRed;
             int blue = image[i][j].rgbtBlue;
-            int green = image[i][j].rgbtGreen;
 
             // Sepia Formulas While Ensuring Values Are Within 0-255 Range
-            int sepiaRed = round((.393 * red) + (.769 * green) + (.189 * blue));
-
-            if (sepiaRed > 255)
-            {
-                sepiaRed = 255;
-            }
-            else
-            {
-                sepiaRed = image[i][j].rgbtRed;
-            }
-
-            int sepiaBlue = round((.272 * red) + (.534 * green) + (.131 * blue));
-
-            if (sepiaBlue > 255)
-            {
-                sepiaBlue = 255;
-            }
-            else
-            {
-                sepiaBlue = image[i][j].rgbtBlue;
-            }
-
-            int sepiaGreen = round((.349 * red) + (.686 * green) + (.168 * blue));
+            int sepiaGreen = round((0.349 * red) + (0.686 * green) + (0.168 * blue));
 
             if (sepiaGreen > 255)
             {
-                sepiaGreen = 255;
+                image[i][j].rgbtGreen = 255;
             }
             else
             {
-                sepiaGreen = image[i][j].rgbtGreen;
+                 image[i][j].rgbtGreen = sepiaGreen;
+            }
+
+            int sepiaBlue = round((0.272 * red) + (0.534 * green) + (0.131 * blue));
+
+            if (sepiaBlue > 255)
+            {
+                image[i][j].rgbtBlue = 255;
+            }
+            else
+            {
+                image[i][j].rgbtBlue = sepiaBlue;
+            }
+
+            int sepiaRed = round((0.393 * red) + (0.769 * green) + (0.189 * blue));
+
+            if (sepiaRed > 255)
+            {
+                image[i][j].rgbtRed = 255;
+            }
+            else
+            {
+                image[i][j].rgbtRed = sepiaRed;
             }
         }
     }
-    return;
 }
 
 
