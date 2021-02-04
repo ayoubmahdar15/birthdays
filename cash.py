@@ -1,12 +1,15 @@
 from cs50 import get_float
 
+## original dollar change amount input 
 dollar = get_float("Change owed: ")
 if dollar < 0:
     print ("Enter non-negative value")
     dollar = get_float("Change owed: ")
-    
+
+## dollars converted into coin change amount    
 total_change = dollar * 100
 
+## Coins needed intiialized to zero 
 coins = 0
 
 while total_change > 0: 
