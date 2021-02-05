@@ -20,10 +20,10 @@ L = (letters / words) * 100
 S = (sentences / words) * 100
 
 ## Formula and Print Grade 
-grade index = round(0.0588 * L - 0.296 * S - 15.8)
-if grade index < 1:
+grade_index = round(0.0588 * L - 0.296 * S - 15.8)
+if grade_index < 1:
     print ("Before Grade 1")
-elif grade index < 16 and grade index >= 1:
+elif grade_index < 16 and grade_index >= 1:
     print (f"Grade {index}")
 else:
     print ("Grade 16+")
