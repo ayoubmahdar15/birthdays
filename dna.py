@@ -20,7 +20,7 @@ def print_matching(database, actual_array):
         if values == actual_array: 
             print(individual)
             return 
-    print("No match found")
+    print("No match")
     
     
 def main():
