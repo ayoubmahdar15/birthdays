@@ -88,9 +88,10 @@ Suspects: Ernest, Russell, Madison
 --8. Who were they calling?
     SELECT name, license_plate FROM people WHERE phone_number IN ("(375) 555-8161", "(725) 555-3243", "(676) 555-6554");
 
-James | Q13SVG6 (Ernest Called)
+Berthold | 4V16VO0 (Ernest Called) 
+James | Q13SVG6 (Madison Called)
 Philip | GW362R6 (Russell Called)
-Berthold | 4V16VO0 (Madison Called)
+
 
 Passport Numbers of Suspects and Passageners
     SELECT * FROM airports WHERE city = "Fiftyville";
