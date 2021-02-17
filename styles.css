@@ -1,0 +1,40 @@
+body
+{
+    background-color: #fff;
+    margin: 0;
+    text-align: left;
+    padding: 0 20px 20px 20px;
+}
+
+.header 
+{
+    padding: 50px;
+    text-align: center;
+    background: DarkRed;
+    color: black;
+    font-size: 45px;
+    font-family: "Arial Black"
+}
+
+.hello
+{
+    font-size: 24px
+    font-family: "Arial"
+    text-align: center;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.para
+{
+    font-size: 15px
+    font-family: "Times New Roman"
+}
+
+.me
+{
+    font-size: 20px
+    font-family: "Arial";
+    font-weight: bold;
+    text-decoration: underline;
+}
