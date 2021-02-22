@@ -188,10 +188,10 @@ def register():
         elif not request.form.get("password"):
             return apology("Please provide a valid password")
         # Valid Second Password
-        elif not request.form.get("password2"):
+        elif not request.form.get("confirmation"):
             return apology("Please confirm your password correctly")
         # Valid Password Match Confirmation
-        elif not request.form.get("password") == request.form.get("password2"):
+        elif not request.form.get("password") == request.form.get("confirmation"):
             return apology("Passwords do not match")
 
         #Hash password for security
