@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+
+    <table class="table table-striped" style="width:100%">
+        <h2>Stock Portfolio</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Shares</th>
+                        <th>Share Price</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- TODO: Loop through the database entries to display them in this table -->
+                        {% for stock in stocks %}
+                            <tr>
+                                <td>{{ stock.symbol }}</td>
+                                <td>{{ stock.name }}</td>
+                                <td>{{ stock.shares }}</td>
+                                <td>{{ stock.share_price}}</td>
+                                <td>{{ stock.cost}}</td>
+                            </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+            <br>
+            <h5> Cash Balance: {{ cash }} </h5>
+            <br>
+            <h5> Total Cash Value Amount: {{ total_cash_value_amount }} </h5>
+
+{% endblock %}
