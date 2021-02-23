@@ -217,19 +217,16 @@ def register():
         hashed_password = generate_password_hash(request.form.get("password"))
 
         #Add User Into Database
-        result = db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)", username=request.form.get("username"), hash=hashed_password)
+        new_user = db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)", username=request.form.get("username"), hash=hashed_password)
 
         # Invalid Username
-        if not result:
+        if not new_user:
             return apology("Sorry, your account registration has failed (username already taken). Please try again!")
 
-        rows = db.execute("SELECT * FROM users WHERE username = :username",
-            username = request.form.get("username"))
-
         # User Log In/Session Remembered
-        session["user_id"] = rows[0]["id"]
+        session["user_id"] = new_user
 
-        flash("Congratsulations, You Are Registered!")
+        flash("Congrats, You Are Registered!")
 
         return redirect(url_for("index"))
 
@@ -244,10 +241,10 @@ def sell():
 
     if request.method == "POST":
         # Valid stock inputted
-        if not request.form.get("stock") or (not request.form.get("shares")): 
+        if not request.form.get("stock") or (not request.form.get("shares")):
             return apology("Error, no stock/no share amount was inputted")
 
-        # Valid amount of a stock input 
+        # Valid amount of a stock input
         if int(request.form.get("shares")) <= 0:
             return apology("Error, enter a positive number of shares you would like to sell")
 
@@ -264,7 +261,7 @@ def sell():
         db.execute("UPDATE users SET cash=cash+:profit WHERE id = :user_id", profit=profit, user_id=session["user_id"])
 
         # Add this sell into portfolio
-        sold = db.execute("INSERT INTO Stock_Portfolio (user_id, symbol, shares, share_price, time) VALUES (:user_id, :symbol, :shares, :share_price, :time)", 
+        sold = db.execute("INSERT INTO Stock_Portfolio (user_id, symbol, shares, share_price, time) VALUES (:user_id, :symbol, :shares, :share_price, :time)",
         user_id=session["user_id"], symbol=symbol["share_price"], shares=-int(request.form.get("shares")), share_pricee=symbol["share_price"], time=timestamp.now())
 
         db.execute("UPDATE Stock_Portfolio SET shares=shares-:shares WHERE symbol=:symbol",
