@@ -46,8 +46,27 @@ if not os.environ.get("API_KEY"):
 @login_required
 def index():
     """Show portfolio of stocks"""
-    return apology("TODO")
 
+    # Stocks owned and shares amount
+    stocks_owned = db.execute("SELECT symbol, shares FROM Stock_Portfolio WHERE id = :user_id", user_id=session["user_id"])
+
+    # User Cash Balance Amount
+    cash_balance = db.execute("SELECT cash FROM users WHERE id = :id", id=session["user_id"])
+
+    total_cash_amount = float(result[0]['cash'])
+
+    total_cash_value_amount = total_cash_amount
+
+    # current price of each stock, total value of each holding...
+    for stock in stocks:
+        symbol = str(stock["stock"])
+        shares = int(stock["shares"])
+        share_price = lookup(symbol)
+        cost = shares * stock["share_price"]
+        total_cash_value_amount += cost
+    # cash + stock value extra
+
+    return render_template("index.html", stocks=stocks, total_cash_value_amount=total_cash_value_amount, cash = total_cash_amount)
 
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
@@ -68,13 +87,13 @@ def buy():
             return apology("Error, enter a positive number of shares you would like to buy")
 
         #Select specific user.
-        row = db.execute("SELECT cash FROM users WHERE id = :id", id=session["user_id"])
+        cash = db.execute("SELECT cash FROM users WHERE id = :id", id=session["user_id"])
 
         # Check cash amount of specific user
-        total_cash = row[0], ["cash"]
+        total_cash = cash[0], ["cash"]
 
         # Total money needed
-        cost = shares * stock["price"]
+        cost = shares * stock["share_price"]
 
         # Purchasing Process
         if cost > total_cash:
@@ -85,12 +104,12 @@ def buy():
             cash = total_cash - cost, id=session["user_id"])
 
             # Check current Stock Portfolio
-            users_current_shares = db.execute("SELECT shares FROM Stock_Portfolio WHERE id = :id AND symbol = :symbol",
-            id=session["user_id"], symbol=request.form.get("symbol"))
+            users_current_shares = db.execute("SELECT shares FROM Stock_Portfolio WHERE id = :user_id AND symbol = :symbol",
+            user_id=session["user_id"], symbol=request.form.get("symbol"))
 
             if not users_current_shares:
                 # Add into Stock Portfolio
-                db.execute("INSERT INTO Stock_Portfolio VALUES (:id, :symbol, :shares, :share_price, :time", id=session["user_id"], symbol=request.form.get("symbol"), shares=shares, share_price=stock["price"], time=timestamp.now())
+                db.execute("INSERT INTO Stock_Portfolio VALUES (:user_id, :symbol, :shares, :share_price, :time", user_id=session["user_id"], symbol=request.form.get("symbol"), shares=shares, share_price=stock["price"], time=timestamp.now())
             else:
                 # Update Stock Portfolio
                 db.execute("UPDATE Stock_Portfolio SET shares = shares + :shares WHERE id = :id AND symbol = :symbol",
@@ -130,7 +149,7 @@ def login():
             return apology("must provide password", 403)
 
         # Query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
+        rows = db.execute("SELECT * FROM users WHERE username = :username", request.form.get("username"))
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
@@ -189,7 +208,7 @@ def register():
             return apology("Please provide a valid password")
         # Valid Second Password
         elif not request.form.get("confirmation"):
-            return apology("Please confirm your password correctly")
+            return apology("Please enter confirmation")
         # Valid Password Match Confirmation
         elif not request.form.get("password") == request.form.get("confirmation"):
             return apology("Passwords do not match")
@@ -198,20 +217,21 @@ def register():
         hashed_password = generate_password_hash(request.form.get("password"))
 
         #Add User Into Database
-        result = db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)",
-            username=request.form.get("username"), hashed_password=hash)
+        result = db.execute("INSERT INTO users (username, hash) VALUES(:username, :hash)", username=request.form.get("username"), hash=hashed_password)
 
         # Invalid Username
         if not result:
             return apology("Sorry, your account registration has failed (username already taken). Please try again!")
 
-        rows = db.execute("SELECT * FROM users WHERE username = ?",
+        rows = db.execute("SELECT * FROM users WHERE username = :username",
             username = request.form.get("username"))
 
         # User Log In/Session Remembered
         session["user_id"] = rows[0]["id"]
 
-        return redirect("/")
+        flash("Congratsulations, You Are Registered!")
+
+        return redirect(url_for("index"))
 
     else: # Via GET pathway
         return render_template("register.html")
@@ -221,7 +241,44 @@ def register():
 @login_required
 def sell():
     """Sell shares of stock"""
-    return apology("TODO")
+
+    if request.method == "POST":
+        # Valid stock inputted
+        if not request.form.get("stock") or (not request.form.get("shares")): 
+            return apology("Error, no stock/no share amount was inputted")
+
+        # Valid amount of a stock input 
+        if int(request.form.get("shares")) <= 0:
+            return apology("Error, enter a positive number of shares you would like to sell")
+
+        # Select stock to sell
+        user_shares = db.execute("SELECT shares FROM Stock_Portfolio WHERE id = :user_id AND stock=:stock", id=session["user_id"], stock=request.form.get("stock"))
+
+        if int(request.form.get("shares")) > user_shares[0]["shares"]:
+            return apology("Not enough shares to sell")
+
+        # Money made from selling stock(s)
+        profit = int(request.form.get("shares")) * symbol["share_price"]
+
+        # Update user's cash balance
+        db.execute("UPDATE users SET cash=cash+:profit WHERE id = :user_id", profit=profit, user_id=session["user_id"])
+
+        # Add this sell into portfolio
+        sold = db.execute("INSERT INTO Stock_Portfolio (user_id, symbol, shares, share_price, time) VALUES (:user_id, :symbol, :shares, :share_price, :time)", 
+        user_id=session["user_id"], symbol=symbol["share_price"], shares=-int(request.form.get("shares")), share_pricee=symbol["share_price"], time=timestamp.now())
+
+        db.execute("UPDATE Stock_Portfolio SET shares=shares-:shares WHERE symbol=:symbol",
+            shares=int(request.form.get("shares")), symbol=share_price["symbol"])
+
+        flash("Sold!")
+
+        return redirect(url_for("index"))
+
+    else:
+        #Display sell page
+        stock_portfolio = db. execute("SELECT symbol FROM Stock_Portfolio")
+
+        return render_template("sell.html", symbol=stock_portfolio)
 
 
 def errorhandler(e):
